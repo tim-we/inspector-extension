@@ -1,20 +1,27 @@
 {
     "manifest_version": 2,
     "name": "Extension Inspector",
-    "version": "0.2.0",
+    "version": "1.0.0",
     "description": "Inspect Firefox extensions with web-ext-inspector.",
     "author": "Tim Weißenfels",
 
     "permissions": ["activeTab"],
 
     "background": {
-        "scripts": [
-            "background.js"
-        ]
+        "scripts": ["background.js"]
+    },
+
+    "icons": {
+        "48": "logo/48.png",
+        "96": "logo/96.png"
     },
 
     "page_action": {
         "default_title": "Inspect Extension",
-        "show_matches": ["https://addons.mozilla.org/*/firefox/addon/*"]
+        "show_matches": ["https://addons.mozilla.org/*/firefox/addon/*"],
+        "default_icon": {
+            "19": "logo/19.png",
+            "38": "logo/38.png"
+        }
     }
 }
