@@ -1,7 +1,29 @@
 browser.pageAction.onClicked.addListener((tab) => {
     const url = new URL(tab.url);
 
-    // parse URL (get extension slug)
+    let inspectURL;
+
+    if (url.host === "addons.mozilla.org") {
+        inspectURL = getAMOInspectionURL(url);
+    } else if (url.host === "chrome.google.com") {
+        inspectURL = getCWSInspectionURL(url);
+    } else {
+        console.error("Unknown host", url.host);
+        return;
+    }
+
+    browser.tabs.create({
+        active: true,
+        openerTabId: tab.id,
+        url: inspectURL,
+    });
+});
+
+/**
+ * @param {URL} url 
+ * @returns {string}
+ */
+function getAMOInspectionURL(url) {
     const parts = url.pathname.split("/");
     const n = parts.length;
     const i = parts.findIndex(
@@ -9,9 +31,21 @@ browser.pageAction.onClicked.addListener((tab) => {
     );
     const extension = parts[i + 2];
 
-    browser.tabs.create({
-        active: true,
-        openerTabId: tab.id,
-        url: `https://tim-we.github.io/web-ext-inspector/?extension=${extension}`,
-    });
-});
+    return `https://tim-we.github.io/web-ext-inspector/?extension=${extension}&store=amo`;
+}
+
+/**
+ * @param {URL} url 
+ * @returns {string}
+ */
+ function getCWSInspectionURL(url) {
+    const parts = url.pathname.split("/");
+    const n = parts.length;
+    const i = parts.findIndex(
+        (v, i) => v === "webstore" && i + 1 < n && parts[i + 1] === "detail"
+    );
+    const extensionName = parts[i + 2];
+    const extensionId = parts[i + 3];
+
+    return `https://tim-we.github.io/web-ext-inspector/?extension=${extensionId}&store=cws`;
+}
