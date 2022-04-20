@@ -31,7 +31,7 @@ function getAMOInspectionURL(url) {
     );
     const extension = parts[i + 2];
 
-    return `https://tim-we.github.io/web-ext-inspector/?extension=${extension}&store=amo`;
+    return `https://tim-we.github.io/web-ext-inspector/inspect/firefox/${extension}`;
 }
 
 /**
@@ -47,5 +47,5 @@ function getAMOInspectionURL(url) {
     const extensionName = parts[i + 2];
     const extensionId = parts[i + 3];
 
-    return `https://tim-we.github.io/web-ext-inspector/?extension=${extensionId}&store=cws`;
+    return `https://tim-we.github.io/web-ext-inspector/inspect/chrome/${extensionId}`;
 }
