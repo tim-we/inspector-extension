@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.1.1
+
+      - name: Install web-ext
+        run: npm install -g web-ext@6
+
+      - name: Lint
+        run: web-ext lint
+        
+      - name: Build
+        run: web-ext build
+        
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          path: web-ext-artifacts/*.zip
+          if-no-files-found: error
