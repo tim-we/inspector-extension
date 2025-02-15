@@ -4,3 +4,5 @@
 
 Quickly inspect extensions on addons.mozilla.org with a single click.
 See https://github.com/tim-we/web-ext-inspector for details.
+
+Supports both addons.mozilla.org (AMO) and Chrome Web Store (CWS).
