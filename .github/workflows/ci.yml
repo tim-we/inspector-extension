@@ -11,13 +11,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3.1.1
+        uses: actions/setup-node@v4
 
       - name: Install web-ext
-        run: npm install -g web-ext@6
+        run: npm install -g web-ext@8
 
       - name: Lint
         run: web-ext lint
@@ -26,7 +26,7 @@ jobs:
         run: web-ext build
         
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.0.0
+        uses: actions/upload-artifact@v4
         with:
           path: web-ext-artifacts/*.zip
           if-no-files-found: error
